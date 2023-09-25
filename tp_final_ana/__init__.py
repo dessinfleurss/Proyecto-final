@@ -28,5 +28,9 @@ def create_app(test_config=None):
     @app.route('/holaa')
     def holaa():
         return 'Que lindos son los gatos!'
+    
+
+    from . import db
+    db.init_app(app)
  
     return app

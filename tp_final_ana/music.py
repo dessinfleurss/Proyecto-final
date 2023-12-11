@@ -16,3 +16,21 @@ def index():
          ORDER BY name DESC"""
     ).fetchall()
     return render_template('canciones/index.html', musica=musica)
+
+
+@bp.route('/<int:id>/datalle', methods=('GET', 'POST'))
+def detalle(id):
+    db = get_db()
+    music = db.execute(
+        """SELECT name as nombre
+         FROM tracks
+         ORDER BY name DESC"""
+    ).fetchone()
+
+    artistas = db.execute(
+        """SELECT ArtistId, name
+            FROM artists
+                ORDER BY ArtistId;"""
+    ).fetchall()
+
+    return render_template('canciones/detalle.html', music=music, artistas=artistas)
